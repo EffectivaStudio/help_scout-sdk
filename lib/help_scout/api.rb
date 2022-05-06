@@ -35,10 +35,10 @@ module HelpScout
         HelpScout::Response.new(result)
       else
         case result.status
-        when 400 then raise BadRequest, result.body&.dig('validationErrors')
-        when 401 then raise NotAuthorized, result.body&.dig('error_description')
+        when 400 then raise BadRequest, result.body
+        when 401 then raise NotAuthorized, result.body
         when 404 then raise NotFound, 'Resource Not Found'
-        when 429 then raise ThrottleLimitReached, result.body&.dig('error')
+        when 429 then raise ThrottleLimitReached, result.body
         else raise InternalError, result.body
         end
       end
